@@ -3,6 +3,26 @@ import re
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
+def get_mobile_numbers(html):
+    numbers = []
+
+    # Case: 1234567890
+    numbers += re.findall(r'[>\s]\d{10}\D', html)
+    # Case: 12345 67890 or 12345-67890
+    numbers += re.findall(r'[>\s]\d{5}[-\.\s]\d{5}\D', html)
+    # Case: 123 456 7890 or 123-456-7890
+    numbers += re.findall(r'[>\s]\d{3}[-\.\s]\d{3}[-\.\s]\d{4}\D', html)
+    # Case: +911234567890 +91 1234567890
+    numbers += re.findall(r'[>\s]\+91[-\s]\d{10}\D', html)
+    # Case: +91 12345 67890 or +91-12345-67890
+    numbers += re.findall(r'[>\s]\+91[-\s]\d{5}[-\.\s]\d{5}\D', html)
+    # Case: +91 123 456 7890 or +91-123-456-7890
+    numbers += re.findall(r'[>\s]\+91[-\s]\d{3}[-\.\s]\d{3}[-\.\s]\d{4}\D', html)
+
+    for i in range(len(numbers)):
+        numbers[i] = numbers[i][1:-2]
+
+    return numbers
 
 website = input("Enter the website URL: ")
 
@@ -15,4 +35,4 @@ soup = BeautifulSoup(html_data, 'html.parser')
 raw_html = soup.prettify()
 
 # print(raw_html)
-print(raw_html)
+print(get_mobile_numbers(raw_html))
