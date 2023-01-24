@@ -26,10 +26,22 @@ def get_mobile_numbers(html):
 
 website = input("Enter the website URL: ")
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0'
-}
-html_data = requests.get(website, headers=headers).content
+opt = int(input(" 1. Requests\n 2. Selenium\n Select a library: "))
+
+if opt == 1:
+    # Requests Code
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0'
+    }
+    html_data = requests.get(website, headers=headers).content
+
+elif opt == 2:
+    # Selenium Code
+    driver = webdriver.Chrome()
+    driver.get(website)
+
+    html_data = driver.page_source
+    driver.close()
 
 soup = BeautifulSoup(html_data, 'html.parser')
 raw_html = soup.prettify()
