@@ -1,0 +1,8 @@
+{
+    "name": "Contact Download",
+    "short_name": "Contact Download",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "Download all possible contact numbers displayed in a particular URL"
+}
