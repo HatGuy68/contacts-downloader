@@ -52,3 +52,11 @@ def read_root(request: Request):
     numbers = None
     context = {'request': request, 'numbers': numbers}
     return templates.TemplateResponse("index.html", context)
+
+@app.post("/")
+def read_root(request: Request, url: str = Form()):
+    print(url)
+    numbers = scan_website(url)
+    print(url, numbers)
+    context = {'request': request, 'url': url, 'numbers': numbers}
+    return templates.TemplateResponse("index.html", context)

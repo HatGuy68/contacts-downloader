@@ -1,0 +1,10 @@
+{% if numbers.numbers %}
+    <div class="output">
+        <ul id="numbers">
+            <h3>{{ url }}</h3>
+            {% for num in numbers.numbers %}
+                <li><a href="tel:{{ num }}">{{ num }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
