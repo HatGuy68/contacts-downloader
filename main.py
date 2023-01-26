@@ -49,8 +49,8 @@ def scan_website(url):
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
-    numbers = None
-    context = {'request': request, 'numbers': numbers}
+    url = None
+    context = {'request': request, 'url': url}
     return templates.TemplateResponse("index.html", context)
 
 @app.post("/")
