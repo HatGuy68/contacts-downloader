@@ -35,15 +35,23 @@ def scan_website(url):
     numbers += re.findall(r'[>\s]\d{5}[-\.\s]\d{5}\D', raw_html)
     # Case: 123 456 7890 or 123-456-7890
     numbers += re.findall(r'[>\s]\d{3}[-\.\s]\d{3}[-\.\s]\d{4}\D', raw_html)
+    # Case: 1234 567 890 or 1234-567-890
+    numbers += re.findall(r'[>\s]\+91[-\s]\d{4}[-\.\s]\d{3}[-\.\s]\d{3}\D', raw_html)
     # Case: +911234567890 +91 1234567890
     numbers += re.findall(r'[>\s]\+91[-\s]\d{10}\D', raw_html)
     # Case: +91 12345 67890 or +91-12345-67890
     numbers += re.findall(r'[>\s]\+91[-\s]\d{5}[-\.\s]\d{5}\D', raw_html)
     # Case: +91 123 456 7890 or +91-123-456-7890
     numbers += re.findall(r'[>\s]\+91[-\s]\d{3}[-\.\s]\d{3}[-\.\s]\d{4}\D', raw_html)
+    # Case: +91 1234 567 890 or +91-1234-567-890
+    numbers += re.findall(r'[>\s]\+91[-\s]\d{4}[-\.\s]\d{3}[-\.\s]\d{3}\D', raw_html)
 
     for i in range(len(numbers)):
         numbers[i] = numbers[i][1:-2]
+        numbers[i] = numbers[i].replace(" ","")
+        numbers[i] = numbers[i].replace("-","")
+
+    numbers = list(set(numbers))
 
     return {"numbers": numbers}
 
